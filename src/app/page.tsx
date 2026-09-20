@@ -1,69 +1,84 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Play, Network, ShieldCheck } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+
+const cards = [
+  {
+    title: "Experience It",
+    description: "Step into a realistic voice-impersonation incident. See how Vaani Kavach protects a customer during an active call.",
+    icon: <Play className="w-5 h-5 text-foreground/80" />,
+    cta: "Start Scenario",
+    href: "/simulation",
+  },
+  {
+    title: "Understand It",
+    description: "Explore the engineering behind the scenes. Dive into the system architecture and integration components.",
+    icon: <Network className="w-5 h-5 text-foreground/80" />,
+    cta: "View Architecture",
+    href: "/architecture",
+  },
+  {
+    title: "Test It",
+    description: "Access the technical workbench. Test the core voice models and API exchanges directly.",
+    icon: <ShieldCheck className="w-5 h-5 text-foreground/80" />,
+    cta: "Open Workbench",
+    href: "/try-model",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] bg-background">
+      <div className="container px-4 py-24 mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-2xl mb-24"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[10px] uppercase tracking-widest font-medium border rounded-full border-white/10 text-muted-foreground bg-white/[0.02]">
+            SIH 2026 Demonstration
+          </div>
+          <h1 className="mb-6 text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
+            From Voice Integrity to Action Protection.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl text-muted-foreground font-light leading-relaxed">
+            Vaani Kavach analyzes suspicious calls and intercepts fraudulent transactions before they happen.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="grid gap-6 md:grid-cols-3"
+        >
+          {cards.map((card, index) => (
+            <Link key={card.title} href={card.href} className="group">
+              <Card className="h-full flex flex-col bg-white/[0.01] border-white/10 group-hover:bg-white/[0.02] group-hover:border-white/20 transition-all shadow-none rounded-xl">
+                <CardHeader className="pb-4">
+                  <div className="mb-4 w-10 h-10 rounded-lg flex items-center justify-center bg-white/5 border border-white/10">
+                    {card.icon}
+                  </div>
+                  <CardTitle className="text-lg font-medium tracking-tight">{card.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="mt-auto flex flex-col gap-8">
+                  <CardDescription className="text-sm leading-relaxed text-muted-foreground font-light">
+                    {card.description}
+                  </CardDescription>
+                  <div className="flex items-center text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+                    {card.cta}
+                    <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }
